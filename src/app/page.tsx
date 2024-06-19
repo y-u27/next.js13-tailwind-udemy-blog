@@ -12,7 +12,6 @@ export default async function Home() {
 
   const res = await fetch(`${API_URL}/api`, {cache: "no-store"});
   const articles = await res.json();
-  console.log(articles);
   
   // useEffectやuseStateはクライアントサイドでしか使えない→next.jsで使いたい場合はファイルの先頭に「"use client"」を記述する
   // useEffect(() => {

@@ -13,3 +13,7 @@ export default async function handler(
 
   return res.status(200).json(data);
 }
+
+export const config = {
+  matcher: ["/api"],
+};
