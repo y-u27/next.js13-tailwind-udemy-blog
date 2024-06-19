@@ -1,18 +1,19 @@
+import { Article } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import ArticleCard from "./ArticleCard";
 
-const ArticleList = () => {
+type ArticlesListProps = {
+  articles: Article[];
+};
+
+const ArticleList = ({ articles }: ArticlesListProps) => {
   return (
     <div>
-      <div>
-        <article>
-          <Link href="#">
-            <Image src="https://picsum.photos/200/300
-" alt="" width={1280} height={300} />
-          </Link>
-        </article>
-      </div>
+      {articles.map((article) => (
+        <ArticleCard article={article} key={article.id} />
+      ))}
     </div>
   );
 };

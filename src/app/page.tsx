@@ -1,12 +1,33 @@
 import Image from "next/image";
 import ArticleList from "./components/ArticleList";
+import { getAllArticles } from "@/data/blogAPI";
+import { useEffect } from "react";
+import { supabase } from "@/utils/supabaseClient";
 
-export default function Home() {
+export default async function Home() {
+  // const articles = await getAllArticles();
+  // console.log(supabase);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const res = await fetch(`${API_URL}/api`, {cache: "no-store"});
+  const articles = await res.json();
+  console.log(articles);
+  
+  // useEffectやuseStateはクライアントサイドでしか使えない→next.jsで使いたい場合はファイルの先頭に「"use client"」を記述する
+  // useEffect(() => {
+  //   const getAllBlogs = async () => {
+  //     await fetch("http://localhost:3001/posts");
+  //     console.log(res);
+  //   };
+  //   getAllBlogs();
+  // }, []);
+  
   return (
     <div className="md:flex">
       {/* sectionタグ:2、asideタグ:1 */}
       <section className="w-full md:w-2/3 flex flex-col items-center px-3">
-        <ArticleList />
+        <ArticleList articles={articles} />
       </section>
 
       <aside className="w-full md:w-1/3 flex flex-col items-center px-3 md:pl-6">
